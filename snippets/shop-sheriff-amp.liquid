@@ -1,0 +1,73 @@
+{% comment %}Managed by ShopSheriff Shopify app{% endcomment %}
+
+{% if template contains 'product' %}
+  {% unless product.handle.size > 0 %}
+    {% assign denyAmp = true %}
+  {% endunless %}
+  {% assign amp_path = '/products/' | append: product.handle %}
+{% endif %}
+{% if template contains 'collection' %}
+  {% unless collection.handle == 'all' %}
+  {% unless current_tags %}
+  {% unless collection.current_type %}
+  {% unless collection.current_vendor %}
+  {% if collection.products_count %}
+    {% assign amp_path = '/collections/' | append: collection.handle %}
+    {% if current_page > 1 %}
+      {% assign amp_path = amp_path | append: '?page=' | append: current_page %}
+    {% endif %}
+    {% assign ssmeta = collection.metafields.shopsheriff %}
+    {% if ssmeta %}
+      {% assign ssMetaVisible = collection.metafields.shopsheriff.amp-visibility %}
+      {% if ssMetaVisible == 0 %}
+        {% assign denyAmp = true %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+  {% endunless %}
+  {% endunless %}
+  {% endunless %}
+  {% endunless %}
+{% endif %}
+
+{% if template == 'blog' %}
+  {% unless blog.handle == 'all' %}
+  {% unless current_tags %}
+    {% assign amp_path = '/blogs/' | append: blog.handle %}
+    {% if current_page > 1 %}
+    {% assign amp_path = amp_path | append: '?page=' | append: current_page %}
+    {% endif %}
+  {% endunless %}
+  {% assign ssmeta = blog.metafields.shopsheriff %}
+  {% if ssmeta %}
+    {% assign ssMetaVisible = blog.metafields.shopsheriff.amp-visibility %}
+    {% if ssMetaVisible == 0 %}
+      {% assign denyAmp = true %}
+    {% endif %}
+  {% endif %}
+  {% endunless %}
+{% endif %}
+{% if template == 'article' %}
+  {% assign amp_path = '' | append: article.url %}
+{% endif %}
+{% if template == 'page' %}
+  {% assign amp_path = '/pages/' | append : page.handle %}
+  {% assign ssmeta = page.metafields.shopsheriff %}
+  {% if ssmeta %}
+    {% assign ssMetaVisible = page.metafields.shopsheriff.amp-visibility %}
+    {% if ssMetaVisible == 0 %}
+      {% assign denyAmp = true %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+      
+{% if template == 'index' %}
+  {% assign amp_path = '/' %}
+{% endif %}
+      
+<script type="text/javascript">var _0x5eee=['search','utm','location','origin','shopsheriff.amp-snippet.end','performance','mark','shopsheriff.amp-snippet.start','/cart','pathname','referrer','includes','ampproject.org','/a/s/'];(function(_0x375860,_0x4736e3){var _0x406250=function(_0x2763a7){while(--_0x2763a7){_0x375860['push'](_0x375860['shift']());}};_0x406250(++_0x4736e3);}(_0x5eee,0x171));var _0x143f=function(_0x5b1c7e,_0x3efbc7){_0x5b1c7e=_0x5b1c7e-0x0;var _0x3421c8=_0x5eee[_0x5b1c7e];return _0x3421c8;};var a=window[_0x143f('0x0')]&&window[_0x143f('0x0')][_0x143f('0x1')];if(a){window[_0x143f('0x0')][_0x143f('0x1')](_0x143f('0x2'));}var doc=document;var redirect=_0x143f('0x3')===window['location'][_0x143f('0x4')]&&(doc[_0x143f('0x5')][_0x143f('0x6')](_0x143f('0x7'))||doc[_0x143f('0x5')][_0x143f('0x6')](_0x143f('0x8')))&&!doc['location'][_0x143f('0x9')]['includes'](_0x143f('0xa'));if(redirect){var f=doc['location'][_0x143f('0x9')]?'&':'?';window['location']=window[_0x143f('0xb')][_0x143f('0xc')]+window[_0x143f('0xb')][_0x143f('0x4')]+f+'utm_source=shopsheriff&utm_medium=amp&utm_campaign=shopsheriff&utm_content=add-to-cart';}if(a){window['performance']['mark'](_0x143f('0xd'));}</script>
+{% unless denyAmp %}
+{% if amp_path %}
+   <link rel="amphtml" href="{{ 'https://' | append: 'www.giftsfinder.co.uk/a/s' | append: amp_path  }}">
+{% endif %}
+{% endunless %}
